@@ -1,1 +1,14 @@
-models/
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+.idea/
+.vscode/
+.DS_Store
+
+runs/
