@@ -26,6 +26,7 @@ class Experiment:
     name: str
     description: str
     variants: tuple[Variant, ...]
+    title: str = ""
     base: dict[str, Any] = field(default_factory=dict)
     seeds: tuple[int, ...] = (0, 1, 2)
     total_timesteps: int = 500_000
@@ -44,6 +45,7 @@ EXPERIMENTS: dict[str, Experiment] = {
         Experiment(
             name="sb3-vs-scratch",
             description="Stable-Baselines3 PPO against the from-scratch implementation, identical hyperparameters.",
+            title="Stable-Baselines3 vs from-scratch PPO",
             variants=(
                 Variant("sb3", "Stable-Baselines3 PPO", {"algorithm": "sb3"}),
                 Variant("scratch", "From-scratch PPO", {"algorithm": "scratch"}),
@@ -52,6 +54,7 @@ EXPERIMENTS: dict[str, Experiment] = {
         Experiment(
             name="ppo-ablations",
             description="From-scratch PPO with one implementation detail removed at a time.",
+            title="PPO implementation-detail ablations",
             base={"algorithm": "scratch"},
             variants=(
                 Variant("full", "All implementation details enabled"),
@@ -73,6 +76,7 @@ EXPERIMENTS: dict[str, Experiment] = {
         Experiment(
             name="action-squashing",
             description="Clipping out-of-range Gaussian samples against squashing them with tanh.",
+            title="Clipped vs tanh-squashed actions",
             base={"algorithm": "scratch"},
             variants=(
                 Variant("clipped", "Gaussian samples clipped to the action bounds"),

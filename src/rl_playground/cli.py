@@ -94,6 +94,20 @@ def _experiment_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def _experiment_plot(args: argparse.Namespace) -> int:
+    from rl_playground.experiments import EXPERIMENTS
+    from rl_playground.plotting import plot_curves
+
+    experiment = EXPERIMENTS[args.name]
+    curves = args.results_dir / experiment.name / "curves.csv"
+    if not curves.is_file():
+        raise FileNotFoundError(f"{curves} not found; run: rlp experiment report {experiment.name}")
+    output = args.output or Path("media") / f"{experiment.name}.png"
+    plot_curves(curves, output, experiment.title or experiment.name)
+    log.info("Plot saved to %s", output)
+    return 0
+
+
 def _visual_session(args: argparse.Namespace, rollouts, make_panel, num_tracks: int | None) -> int:
     from rl_playground.rendering import Recorder, Viewer
     from rl_playground.visualization import run_session, track_sequence
@@ -223,6 +237,11 @@ def build_parser() -> argparse.ArgumentParser:
     experiment_report.add_argument("--stochastic", action="store_true", help="sample actions during evaluation")
     experiment_report.set_defaults(handler=_experiment_report)
 
+    experiment_plot = experiment_commands.add_parser("plot", help="plot learning curves from a report")
+    experiment_plot.add_argument("name", choices=EXPERIMENTS)
+    experiment_plot.add_argument("--results-dir", type=Path, default=Path("results"))
+    experiment_plot.add_argument("--output", type=Path, help="image path; defaults to media/<name>.png")
+    experiment_plot.set_defaults(handler=_experiment_plot)
     watch = commands.add_parser("watch", help="watch one agent with live telemetry")
     watch.add_argument("model", help="run directory or checkpoint file")
     watch.add_argument("--episodes", type=int, default=5)
