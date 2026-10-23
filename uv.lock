@@ -962,6 +962,7 @@ dependencies = [
     { name = "rich" },
     { name = "stable-baselines3" },
     { name = "tensorboard" },
+    { name = "torch" },
     { name = "tqdm" },
 ]
 
@@ -973,13 +974,14 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "gymnasium", specifier = ">=1.0" },
+    { name = "gymnasium", specifier = ">=1.1" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pillow", specifier = ">=10.0" },
-    { name = "pygame-ce", specifier = ">=2.5.8" },
+    { name = "pygame-ce", specifier = ">=2.5" },
     { name = "rich", specifier = ">=13.0" },
     { name = "stable-baselines3", specifier = ">=2.4" },
     { name = "tensorboard", specifier = ">=2.15" },
+    { name = "torch", specifier = ">=2.3" },
     { name = "tqdm", specifier = ">=4.66" },
 ]
 

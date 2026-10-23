@@ -28,7 +28,7 @@ alone.
 Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/xquantize/rl-playground.git
+git clone https://github.com/<your-username>/rl-playground.git
 cd rl-playground
 uv sync
 ```

@@ -5,13 +5,14 @@ description = "Reinforcement learning experiments on custom Gymnasium environmen
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "gymnasium>=1.0",
+    "gymnasium>=1.1",
     "numpy>=1.26",
     "pillow>=10.0",
-    "pygame-ce>=2.5.8",
+    "pygame-ce>=2.5",
     "rich>=13.0",
     "stable-baselines3>=2.4",
     "tensorboard>=2.15",
+    "torch>=2.3",
     "tqdm>=4.66",
 ]
 

@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 
 from rl_playground.envs.racing import TRACK_MODES
+from rl_playground.training import ALGORITHMS
 
 log = logging.getLogger("rl_playground")
 
@@ -17,19 +18,21 @@ def _train(args: argparse.Namespace) -> int:
 
     config = TrainConfig(
         run_name=args.name,
+        algorithm=args.algorithm,
         track_mode=args.track,
         total_timesteps=args.timesteps,
         num_envs=args.envs,
         seed=args.seed,
     )
     log.info(
-        "Training %s on %s tracks for %s steps",
+        "Training %s with %s PPO on %s tracks for %s steps",
         config.run_name,
+        config.algorithm,
         config.track_mode,
         f"{config.total_timesteps:,}",
     )
     run_dir = train(config, runs_dir=args.runs_dir, overwrite=args.overwrite)
-    log.info("Model saved to %s", run_dir / "model.zip")
+    log.info("Run saved to %s", run_dir)
     log.info("Training curves: tensorboard --logdir %s", run_dir / "tensorboard")
     return 0
 
@@ -136,6 +139,12 @@ def build_parser() -> argparse.ArgumentParser:
     train = commands.add_parser("train", help="train a PPO agent")
     train.add_argument("--name", required=True, help="run name; outputs go to <runs-dir>/<name>")
     train.add_argument("--track", choices=TRACK_MODES, default="fixed", help="train on the default or random tracks")
+    train.add_argument(
+        "--algorithm",
+        choices=ALGORITHMS,
+        default="sb3",
+        help="sb3: Stable-Baselines3 PPO; scratch: this repository's implementation",
+    )
     train.add_argument("--timesteps", type=int, default=1_000_000)
     train.add_argument("--envs", type=int, default=8, help="parallel environments")
     train.add_argument("--seed", type=int, default=0)
