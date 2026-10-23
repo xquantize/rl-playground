@@ -2,6 +2,7 @@ import gymnasium as gym
 import numpy as np
 import pytest
 import torch
+from torch.distributions import Normal
 
 from rl_playground.algorithms.ppo import PPO, ActorCritic, PPOConfig, PPOPolicy, compute_gae
 from rl_playground.envs import RacingEnv
@@ -83,6 +84,7 @@ def test_training_is_reproducible_for_a_seed(small_envs):
         {"max_grad_norm": None},
         {"clip_objective": False},
         {"bootstrap_truncation": False},
+        {"squash_actions": True},
     ],
     ids=lambda a: next(iter(a)),
 )
@@ -100,6 +102,7 @@ def test_ablations_train(small_envs, ablation):
         {"max_grad_norm": None},
         {"clip_objective": False},
         {"bootstrap_truncation": False},
+        {"squash_actions": True},
     ],
     ids=lambda a: next(iter(a)),
 )
@@ -116,3 +119,28 @@ def test_each_ablation_changes_training(ablation):
         return torch.cat([p.detach().flatten() for p in model.policy.parameters()])
 
     assert not torch.allclose(trained_parameters(), trained_parameters(**ablation))
+
+
+def test_squashed_log_prob_matches_change_of_variables():
+    network = ActorCritic(observation_dim=12, action_dim=2, squash_actions=True)
+    dist = network.distribution(torch.randn(64, 12))
+    raw = dist.sample()
+
+    reference_dist = Normal(dist.loc.double(), dist.scale.double())
+    log_det = torch.log(1 - torch.tanh(raw.double()) ** 2)
+    reference = reference_dist.log_prob(raw.double()).sum(-1) - log_det.sum(-1)
+    torch.testing.assert_close(network.log_prob(dist, raw).double(), reference, atol=1e-4, rtol=1e-4)
+
+
+def test_squashed_policy_round_trips_and_stays_in_bounds(small_envs, tmp_path):
+    model = PPO(small_envs, PPOConfig(n_steps=32, batch_size=16, n_epochs=1, squash_actions=True), seed=0)
+    model.learn(64, progress_bar=False)
+    model.save(tmp_path / "model.pt")
+    restored = PPOPolicy.load(tmp_path / "model.pt")
+    assert restored.network.squash_actions
+
+    observations = np.random.default_rng(0).uniform(-1, 1, (50, 12)).astype(np.float32)
+    for observation in observations:
+        np.testing.assert_allclose(restored.predict(observation), model.predict(observation))
+        sampled = restored.predict(observation, deterministic=False)
+        assert np.all(np.abs(sampled) < 1)

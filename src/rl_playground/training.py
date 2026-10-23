@@ -21,7 +21,12 @@ log = logging.getLogger(__name__)
 
 ALGORITHMS = ("sb3", "scratch")
 MODEL_FILENAMES = {"sb3": "model.zip", "scratch": "model.pt"}
-SCRATCH_ONLY_DEFAULTS = {"orthogonal_init": True, "clip_objective": True, "bootstrap_truncation": True}
+SCRATCH_ONLY_DEFAULTS = {
+    "orthogonal_init": True,
+    "clip_objective": True,
+    "bootstrap_truncation": True,
+    "squash_actions": False,
+}
 
 
 @dataclass(frozen=True)
@@ -48,6 +53,7 @@ class TrainConfig:
     orthogonal_init: bool = True
     clip_objective: bool = True
     bootstrap_truncation: bool = True
+    squash_actions: bool = False
 
     def __post_init__(self) -> None:
         if self.algorithm not in ALGORITHMS:

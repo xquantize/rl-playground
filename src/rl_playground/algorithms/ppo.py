@@ -42,6 +42,7 @@ class PPOConfig:
     orthogonal_init: bool = True
     clip_objective: bool = True
     bootstrap_truncation: bool = True
+    squash_actions: bool = False
 
 
 def _linear(input_dim: int, output_dim: int, gain: float, orthogonal: bool) -> nn.Linear:
@@ -62,30 +63,60 @@ def _mlp(
     return nn.Sequential(*layers, _linear(input_dim, output_dim, output_gain, orthogonal))
 
 
+def _tanh_log_det(raw_actions: torch.Tensor) -> torch.Tensor:
+    """``log(1 - tanh(u)^2)`` computed stably as ``2 * (log 2 - u - softplus(-2u))``."""
+    return 2 * (np.log(2) - raw_actions - nn.functional.softplus(-2 * raw_actions))
+
+
 class ActorCritic(nn.Module):
+    """Separate actor and critic MLPs with a diagonal Gaussian policy.
+
+    With ``squash_actions`` the Gaussian sample ``u`` is passed through ``tanh`` so actions lie in (-1, 1) by
+    construction, and log-probabilities include the change-of-variables correction. Without it, samples are
+    clipped to the action bounds by the caller, as in Stable-Baselines3. Raw (pre-squash) samples are what the
+    rollout buffer stores.
+    """
+
     def __init__(
         self,
         observation_dim: int,
         action_dim: int,
         net_arch: Iterable[int] = (64, 64),
         orthogonal_init: bool = True,
+        squash_actions: bool = False,
     ):
         super().__init__()
         net_arch = tuple(net_arch)
+        self.squash_actions = squash_actions
         self.actor = _mlp(observation_dim, net_arch, action_dim, output_gain=0.01, orthogonal=orthogonal_init)
         self.critic = _mlp(observation_dim, net_arch, 1, output_gain=1.0, orthogonal=orthogonal_init)
         self.log_std = nn.Parameter(torch.zeros(action_dim))
 
     def distribution(self, observations: torch.Tensor) -> Normal:
+        """Gaussian over raw, pre-squash actions."""
         return Normal(self.actor(observations), self.log_std.exp())
 
     def value(self, observations: torch.Tensor) -> torch.Tensor:
         return self.critic(observations).squeeze(-1)
 
-    def evaluate(self, observations: torch.Tensor, actions: torch.Tensor):
-        """Log-probability, entropy and value for a batch of observation-action pairs."""
+    def log_prob(self, dist: Normal, raw_actions: torch.Tensor) -> torch.Tensor:
+        log_prob = dist.log_prob(raw_actions).sum(-1)
+        if self.squash_actions:
+            log_prob = log_prob - _tanh_log_det(raw_actions).sum(-1)
+        return log_prob
+
+    def to_action(self, raw_actions: torch.Tensor) -> torch.Tensor:
+        return torch.tanh(raw_actions) if self.squash_actions else raw_actions
+
+    def evaluate(self, observations: torch.Tensor, raw_actions: torch.Tensor):
+        """Log-probability, entropy and value for a batch of observation-action pairs.
+
+        The entropy of a squashed Gaussian has no closed form, so its single-sample estimate ``-log_prob`` is used.
+        """
         dist = self.distribution(observations)
-        return dist.log_prob(actions).sum(-1), dist.entropy().sum(-1), self.value(observations)
+        log_prob = self.log_prob(dist, raw_actions)
+        entropy = -log_prob if self.squash_actions else dist.entropy().sum(-1)
+        return log_prob, entropy, self.value(observations)
 
 
 def compute_gae(
@@ -127,8 +158,14 @@ class PPO:
         self.action_high = envs.single_action_space.high
 
         torch.manual_seed(seed)
+        if self.config.squash_actions and not (np.all(self.action_low == -1) and np.all(self.action_high == 1)):
+            raise ValueError("squash_actions requires an action space bounded by [-1, 1]")
         self.policy = ActorCritic(
-            self.observation_dim, self.action_dim, self.config.net_arch, self.config.orthogonal_init
+            self.observation_dim,
+            self.action_dim,
+            self.config.net_arch,
+            self.config.orthogonal_init,
+            self.config.squash_actions,
         )
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.config.learning_rate, eps=1e-5)
         self.num_timesteps = 0
@@ -169,11 +206,11 @@ class PPO:
                 with torch.no_grad():
                     dist = self.policy.distribution(observation)
                     action = dist.sample()
-                    log_probs[step] = dist.log_prob(action).sum(-1)
+                    log_probs[step] = self.policy.log_prob(dist, action)
                     values[step] = self.policy.value(observation)
                 observations[step], actions[step] = observation, action
 
-                env_action = np.clip(action.numpy(), self.action_low, self.action_high)
+                env_action = np.clip(self.policy.to_action(action).numpy(), self.action_low, self.action_high)
                 next_observation, reward, terminated, truncated, info = self.envs.step(env_action)
                 running_return += reward
                 running_length += 1
@@ -284,10 +321,7 @@ class PPO:
         }
 
     def predict(self, observation: np.ndarray, deterministic: bool = True) -> np.ndarray:
-        with torch.no_grad():
-            dist = self.policy.distribution(torch.as_tensor(observation, dtype=torch.float32))
-            action = dist.mean if deterministic else dist.sample()
-        return np.clip(action.numpy(), self.action_low, self.action_high)
+        return _predict(self.policy, observation, deterministic, self.action_low, self.action_high)
 
     def save(self, path: Path) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -319,7 +353,13 @@ class PPOPolicy:
     @classmethod
     def load(cls, path: Path, deterministic: bool = True) -> PPOPolicy:
         checkpoint = torch.load(path, map_location="cpu", weights_only=False)
-        network = ActorCritic(checkpoint["observation_dim"], checkpoint["action_dim"], checkpoint["config"]["net_arch"])
+        config = checkpoint["config"]
+        network = ActorCritic(
+            checkpoint["observation_dim"],
+            checkpoint["action_dim"],
+            config["net_arch"],
+            squash_actions=config.get("squash_actions", False),
+        )
         network.load_state_dict(checkpoint["state_dict"])
         network.eval()
         return cls(
@@ -333,7 +373,12 @@ class PPOPolicy:
 
     def predict(self, observation: np.ndarray, deterministic: bool | None = None) -> np.ndarray:
         deterministic = self.deterministic if deterministic is None else deterministic
-        with torch.no_grad():
-            dist = self.network.distribution(torch.as_tensor(observation, dtype=torch.float32))
-            action = dist.mean if deterministic else dist.sample()
-        return np.clip(action.numpy(), self.action_low, self.action_high)
+        return _predict(self.network, observation, deterministic, self.action_low, self.action_high)
+
+
+def _predict(network: ActorCritic, observation, deterministic: bool, low: np.ndarray, high: np.ndarray) -> np.ndarray:
+    """Mean action when deterministic, otherwise a sample; squashed if the network squashes, then clipped."""
+    with torch.no_grad():
+        dist = network.distribution(torch.as_tensor(observation, dtype=torch.float32))
+        raw = dist.mean if deterministic else dist.sample()
+        return np.clip(network.to_action(raw).numpy(), low, high)

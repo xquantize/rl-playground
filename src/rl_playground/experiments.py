@@ -70,6 +70,15 @@ EXPERIMENTS: dict[str, Experiment] = {
                 ),
             ),
         ),
+        Experiment(
+            name="action-squashing",
+            description="Clipping out-of-range Gaussian samples against squashing them with tanh.",
+            base={"algorithm": "scratch"},
+            variants=(
+                Variant("clipped", "Gaussian samples clipped to the action bounds"),
+                Variant("tanh", "Gaussian samples squashed with tanh", {"squash_actions": True}),
+            ),
+        ),
     )
 }
 
