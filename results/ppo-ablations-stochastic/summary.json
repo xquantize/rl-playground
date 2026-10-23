@@ -1,0 +1,1968 @@
+[
+  {
+    "variant": "full",
+    "description": "All implementation details enabled",
+    "overrides": {},
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mean_training_laps": [
+      8.03014447216372,
+      8.117464112392703,
+      8.264916431219852
+    ],
+    "steps_to_threshold": {
+      "threshold": 5.0,
+      "reached": [
+        81920,
+        81920,
+        81920
+      ],
+      "not_reached": 0
+    },
+    "evaluation": [
+      {
+        "label": "full",
+        "mean_laps": 9.432557747001507,
+        "crash_rate": 0.2,
+        "completion_rate": 0.8,
+        "mean_return": 927.3407747001498,
+        "mean_speed": 316.64648330811815,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 5.942993177422453,
+            "outcome": "Crashed",
+            "steps": 884,
+            "episode_return": 575.459317742245,
+            "mean_speed": 314.9361722380547
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.153657160958499,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.3657160958475,
+            "mean_speed": 316.96527558113314
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.18781538439336,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.7815384393343,
+            "mean_speed": 317.01337766681314
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.167964062099738,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.7964062099726,
+            "mean_speed": 316.92381329892237
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.189240006590847,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.924000659084,
+            "mean_speed": 316.9537973918793
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.19403457558735,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.4034575587366,
+            "mean_speed": 316.96355898246253
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 6.958281975774674,
+            "outcome": "Crashed",
+            "steps": 1031,
+            "episode_return": 675.5181975774663,
+            "mean_speed": 315.75715121399475
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.166591037637277,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.6591037637293,
+            "mean_speed": 317.03177973555194
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.179064260987868,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.9064260987858,
+            "mean_speed": 316.8886087249276
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.185935828562995,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.5935828562984,
+            "mean_speed": 317.03129824744263
+          }
+        ]
+      },
+      {
+        "label": "full",
+        "mean_laps": 10.165602743634961,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 1001.5602743634958,
+        "mean_speed": 316.9742144264218,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.158817369232738,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.8817369232744,
+            "mean_speed": 316.92570500770285
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.13950570173844,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 998.9505701738426,
+            "mean_speed": 317.02195744773934
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.196906018522688,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.6906018522686,
+            "mean_speed": 316.9878961575446
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.162684451036982,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.2684451036992,
+            "mean_speed": 316.964710926164
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.186155717635875,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.6155717635871,
+            "mean_speed": 316.929925191541
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.175420736009704,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.5420736009723,
+            "mean_speed": 317.0190837392859
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.147887925239317,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 999.78879252393,
+            "mean_speed": 316.9898314071019
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.14463946621724,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 999.463946621726,
+            "mean_speed": 316.91547321956455
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.171363115539467,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.1363115539428,
+            "mean_speed": 316.9594241258834
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.172646935177161,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.2646935177147,
+            "mean_speed": 317.02813704169
+          }
+        ]
+      },
+      {
+        "label": "full",
+        "mean_laps": 9.158924788564788,
+        "crash_rate": 0.3,
+        "completion_rate": 0.7,
+        "mean_return": 899.3914788564782,
+        "mean_speed": 316.6632933418369,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 5.945358178959389,
+            "outcome": "Crashed",
+            "steps": 883,
+            "episode_return": 575.7058178959377,
+            "mean_speed": 315.0631973203825
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.168936600211634,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.8936600211633,
+            "mean_speed": 317.08390065454915
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.198234603574955,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.8234603574947,
+            "mean_speed": 317.13331098978716
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 6.66902411644711,
+            "outcome": "Crashed",
+            "steps": 986,
+            "episode_return": 647.0424116447109,
+            "mean_speed": 315.56386564268223
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.190311888318307,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.0311888318301,
+            "mean_speed": 317.12259505950044
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.197874090128801,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.7874090128795,
+            "mean_speed": 317.1202557575506
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.170551668269432,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.055166826942,
+            "mean_speed": 317.14876500722744
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.17834912840407,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.834912840406,
+            "mean_speed": 317.1291814373892
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.194959247572253,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.495924757226,
+            "mean_speed": 317.10416744857446
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 7.675648363761926,
+            "outcome": "Crashed",
+            "steps": 1132,
+            "episode_return": 746.2448363761918,
+            "mean_speed": 316.1636941007255
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "no-advantage-norm",
+    "description": "Raw advantages instead of per-minibatch standardised advantages",
+    "overrides": {
+      "normalize_advantage": false
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mean_training_laps": [
+      8.203715672319541,
+      8.367365148529165,
+      8.632909284385502
+    ],
+    "steps_to_threshold": {
+      "threshold": 5.0,
+      "reached": [
+        90112,
+        90112,
+        90112
+      ],
+      "not_reached": 0
+    },
+    "evaluation": [
+      {
+        "label": "no-advantage-norm",
+        "mean_laps": 10.113832886956818,
+        "crash_rate": 0.1,
+        "completion_rate": 0.9,
+        "mean_return": 995.5682886956814,
+        "mean_speed": 316.85070862020746,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.222759100759355,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.2759100759347,
+            "mean_speed": 316.8860942703869
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.23136298412097,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1008.136298412094,
+            "mean_speed": 316.9464693694147
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.246727325274543,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.6727325274569,
+            "mean_speed": 316.88474790094614
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.23418422201565,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1008.418422201564,
+            "mean_speed": 316.90514706639703
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.2574711477221,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.7471147722085,
+            "mean_speed": 316.7697946111705
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.241793348197927,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.1793348197931,
+            "mean_speed": 316.93585215476685
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 8.95220767591385,
+            "outcome": "Crashed",
+            "steps": 1315,
+            "episode_return": 872.0707675913853,
+            "mean_speed": 316.5267684514882
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.24618142411214,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.618142411214,
+            "mean_speed": 316.91772044965495
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.264443483733327,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1011.4443483733323,
+            "mean_speed": 316.9163408455506
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.241198157718307,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.1198157718322,
+            "mean_speed": 316.8181510822987
+          }
+        ]
+      },
+      {
+        "label": "no-advantage-norm",
+        "mean_laps": 10.213847038318267,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 1006.3847038318265,
+        "mean_speed": 317.0865398522339,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.204620523842173,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.4620523842168,
+            "mean_speed": 317.04754283142995
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.19299303338948,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.2993033389462,
+            "mean_speed": 317.1284492007914
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.223293068406774,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.3293068406782,
+            "mean_speed": 317.1104583258809
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.200680025239953,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.0680025239968,
+            "mean_speed": 317.06902105088096
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.228178915824936,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.8178915824914,
+            "mean_speed": 317.0465511557374
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.216626781314353,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.6626781314361,
+            "mean_speed": 317.13033359066435
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.201492730915396,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.1492730915402,
+            "mean_speed": 317.0967622002275
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.211397866812199,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.1397866812202,
+            "mean_speed": 317.0431049403535
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.238040670547628,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1008.8040670547607,
+            "mean_speed": 317.0473744255017
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.221146766889794,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.1146766889776,
+            "mean_speed": 317.1458008008712
+          }
+        ]
+      },
+      {
+        "label": "no-advantage-norm",
+        "mean_laps": 10.141275616745125,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 999.1275616745131,
+        "mean_speed": 317.12029946275237,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.139585098473653,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 998.9585098473664,
+            "mean_speed": 317.0902227424314
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.119928956898402,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 996.9928956898411,
+            "mean_speed": 317.12683983495924
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.159693558633819,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.9693558633847,
+            "mean_speed": 317.12890589411455
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.14065376228087,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 999.065376228086,
+            "mean_speed": 317.1097954874536
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.143385125422089,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 999.33851254221,
+            "mean_speed": 317.1104490683212
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.15222886630613,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.2228866306119,
+            "mean_speed": 317.1506761626719
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.130070024794286,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 998.0070024794283,
+            "mean_speed": 317.139881271218
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.128020015352366,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 997.8020015352366,
+            "mean_speed": 317.08441137047197
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.150340357503294,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.0340357503313,
+            "mean_speed": 317.125416385056
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.14885040178634,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 999.8850401786352,
+            "mean_speed": 317.13639641082574
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "no-orthogonal-init",
+    "description": "PyTorch default initialisation",
+    "overrides": {
+      "orthogonal_init": false
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mean_training_laps": [
+      7.846100429714214,
+      8.082853417232878,
+      7.839473669401935
+    ],
+    "steps_to_threshold": {
+      "threshold": 5.0,
+      "reached": [
+        90112,
+        81920,
+        81920
+      ],
+      "not_reached": 0
+    },
+    "evaluation": [
+      {
+        "label": "no-orthogonal-init",
+        "mean_laps": 10.164468173161156,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 1001.4468173161156,
+        "mean_speed": 317.10980237258275,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.162244756332214,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.2244756332205,
+            "mean_speed": 317.0855464154892
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.127441130222335,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 997.7441130222331,
+            "mean_speed": 317.1306668725479
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.195155906811156,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.5155906811145,
+            "mean_speed": 317.12114221608954
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.154289192174955,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.4289192174951,
+            "mean_speed": 317.09096932423773
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.187308715682901,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.7308715682917,
+            "mean_speed": 317.10016470231676
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.174790162650705,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.4790162650718,
+            "mean_speed": 317.1318700476686
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.15006803245072,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.0068032450712,
+            "mean_speed": 317.12560724738273
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.141915471535675,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 999.1915471535665,
+            "mean_speed": 317.0968526017775
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.180004208184748,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.0004208184747,
+            "mean_speed": 317.08395611016294
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.171464155566138,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1002.1464155566166,
+            "mean_speed": 317.1312481881539
+          }
+        ]
+      },
+      {
+        "label": "no-orthogonal-init",
+        "mean_laps": 8.38921772797023,
+        "crash_rate": 0.4,
+        "completion_rate": 0.6,
+        "mean_return": 822.6217727970234,
+        "mean_speed": 315.3483402997455,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.228811895021886,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.881189502188,
+            "mean_speed": 317.1683172061339
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.234941222492205,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1008.4941222492214,
+            "mean_speed": 317.2036808731556
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 8.739467978395227,
+            "outcome": "Crashed",
+            "steps": 1278,
+            "episode_return": 851.1667978395245,
+            "mean_speed": 316.7137697293911
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.258163623547732,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.8163623547733,
+            "mean_speed": 317.1708846041221
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 4.153272835161149,
+            "outcome": "Crashed",
+            "steps": 616,
+            "episode_return": 399.1672835161156,
+            "mean_speed": 313.1944681447435
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.259053412442933,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.9053412442937,
+            "mean_speed": 317.1646836124298
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 1.7266007529310587,
+            "outcome": "Crashed",
+            "steps": 265,
+            "episode_return": 160.0100752931057,
+            "mean_speed": 304.1891024710098
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.248916461113962,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.891646111397,
+            "mean_speed": 317.1919484212557
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 7.782433835276693,
+            "outcome": "Crashed",
+            "steps": 1141,
+            "episode_return": 756.8333835276677,
+            "mean_speed": 316.29120406570223
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.260515263319457,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1011.0515263319472,
+            "mean_speed": 317.19534386951125
+          }
+        ]
+      },
+      {
+        "label": "no-orthogonal-init",
+        "mean_laps": 10.13215151805642,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 998.2151518056422,
+        "mean_speed": 317.0343916299874,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.126097191583323,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 997.609719158331,
+            "mean_speed": 316.98759902366663
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.099757744479303,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 994.9757744479305,
+            "mean_speed": 317.06234433689724
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.169857130769666,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.9857130769659,
+            "mean_speed": 317.05400296194756
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.12831220297592,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 997.8312202975924,
+            "mean_speed": 317.0188233702206
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.134181675805456,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 998.4181675805457,
+            "mean_speed": 317.01586281043603
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.15556897954351,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1000.5568979543536,
+            "mean_speed": 317.08312249297813
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.11931730175544,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 996.9317301755449,
+            "mean_speed": 317.0460509871669
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.114232989832184,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 996.4232989832193,
+            "mean_speed": 316.9890905885443
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.135909386613715,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 998.5909386613723,
+            "mean_speed": 317.02858082757825
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.138280577205657,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 998.828057720566,
+            "mean_speed": 317.0584389004378
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "no-grad-clipping",
+    "description": "No global gradient-norm clipping",
+    "overrides": {
+      "max_grad_norm": null
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mean_training_laps": [
+      8.138394602803421,
+      8.37874937576593,
+      8.374504126730512
+    ],
+    "steps_to_threshold": {
+      "threshold": 5.0,
+      "reached": [
+        90112,
+        81920,
+        81920
+      ],
+      "not_reached": 0
+    },
+    "evaluation": [
+      {
+        "label": "no-grad-clipping",
+        "mean_laps": 10.239529094514838,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 1008.952909451484,
+        "mean_speed": 316.9050445248848,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.21853665365362,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.8536653653633,
+            "mean_speed": 316.8732718923897
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.224147637103913,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.4147637103907,
+            "mean_speed": 316.941642724213
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.254549031184641,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.454903118464,
+            "mean_speed": 316.91790556130053
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.229146664019295,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.9146664019308,
+            "mean_speed": 316.917755242102
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.254466588781792,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.4466588781765,
+            "mean_speed": 316.85382681184745
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.240806757274099,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.0806757274117,
+            "mean_speed": 316.9518564445208
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.224829711518083,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.4829711518073,
+            "mean_speed": 316.9366723895909
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.256393015384212,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.6393015384218,
+            "mean_speed": 316.86476371462703
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.250021117030602,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1010.0021117030608,
+            "mean_speed": 316.85646661592375
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.242393769198127,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.2393769198108,
+            "mean_speed": 316.93628385233234
+          }
+        ]
+      },
+      {
+        "label": "no-grad-clipping",
+        "mean_laps": 10.201039013525747,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 1005.1039013525749,
+        "mean_speed": 317.1375710306951,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.194247051638891,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.4247051638885,
+            "mean_speed": 317.1112260068084
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.1686676236755,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1001.8667623675498,
+            "mean_speed": 317.17125426877453
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.215268909987477,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.5268909987493,
+            "mean_speed": 317.16911956605895
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.187801727761338,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.780172776132,
+            "mean_speed": 317.10556807578047
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.223625335559838,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.3625335559836,
+            "mean_speed": 317.1343031264479
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.206179231741862,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.6179231741864,
+            "mean_speed": 317.173657763603
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.185704497813441,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1003.5704497813432,
+            "mean_speed": 317.1203706243257
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.19497348991046,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1004.4973489910464,
+            "mean_speed": 317.11020055416907
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.224067366278621,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.4067366278648,
+            "mean_speed": 317.10536563487824
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.20985490089005,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.9854900890055,
+            "mean_speed": 317.174644686105
+          }
+        ]
+      },
+      {
+        "label": "no-grad-clipping",
+        "mean_laps": 10.226820105552601,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 1007.68201055526,
+        "mean_speed": 317.11699092400903,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 10.215812320945636,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.5812320945611,
+            "mean_speed": 317.096434306551
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 10.207009692837069,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.7009692837069,
+            "mean_speed": 317.1440030479709
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.238242507465069,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1008.8242507465043,
+            "mean_speed": 317.1479190657483
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.213321708117789,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.3321708117801,
+            "mean_speed": 317.09414981042124
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 10.24792108006766,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.7921080067661,
+            "mean_speed": 317.1112945319095
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 10.22788816026863,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.7888160268632,
+            "mean_speed": 317.1433700854327
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 10.212301109557783,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1006.2301109557794,
+            "mean_speed": 317.1035150728459
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.23032821725785,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1008.032821725785,
+            "mean_speed": 317.0969189664074
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 10.246639627253632,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1009.6639627253635,
+            "mean_speed": 317.0960616374346
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 10.228736631754895,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1007.8736631754904,
+            "mean_speed": 317.1362427153692
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "no-clipped-objective",
+    "description": "Unclipped policy-gradient surrogate",
+    "overrides": {
+      "clip_objective": false
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mean_training_laps": [
+      8.016001442722121,
+      7.605957615387733,
+      3.7019206089278063
+    ],
+    "steps_to_threshold": {
+      "threshold": 5.0,
+      "reached": [
+        81920,
+        65536,
+        81920
+      ],
+      "not_reached": 0
+    },
+    "evaluation": [
+      {
+        "label": "no-clipped-objective",
+        "mean_laps": 9.993492290727414,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 984.349229072742,
+        "mean_speed": 317.20674143654503,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 9.998602243024004,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 984.8602243024017,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 9.975953380440144,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 982.595338044015,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 10.006078360530367,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 985.607836053036,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 9.982836080497144,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 983.2836080497146,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 9.996907117619061,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 984.6907117619089,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 9.990755899865789,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 984.0755899865794,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 9.984628753751725,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 983.462875375172,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 10.011742711460746,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 986.1742711460738,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 9.994747281263518,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 984.4747281263518,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 9.99267107882166,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 984.2671078821662,
+            "mean_speed": 317.20674143654503
+          }
+        ]
+      },
+      {
+        "label": "no-clipped-objective",
+        "mean_laps": 5.520774589961417,
+        "crash_rate": 0.9,
+        "completion_rate": 0.1,
+        "mean_return": 534.9134589961419,
+        "mean_speed": 310.8343382830481,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 3.932352750945001,
+            "outcome": "Crashed",
+            "steps": 587,
+            "episode_return": 377.36527509450025,
+            "mean_speed": 312.86220128589025
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 0.8403245479387442,
+            "outcome": "Crashed",
+            "steps": 136,
+            "episode_return": 72.67245479387444,
+            "mean_speed": 289.1920011383647
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 1.7468244794621899,
+            "outcome": "Crashed",
+            "steps": 267,
+            "episode_return": 162.012447946219,
+            "mean_speed": 304.3075361603655
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 10.209132327849257,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 1005.9132327849272,
+            "mean_speed": 317.20674143654503
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 9.564486542244632,
+            "outcome": "Crashed",
+            "steps": 1404,
+            "episode_return": 932.4086542244632,
+            "mean_speed": 317.0157493980182
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 3.4647219005252032,
+            "outcome": "Crashed",
+            "steps": 517,
+            "episode_return": 331.30219005252053,
+            "mean_speed": 311.89576819113654
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 8.953299204508271,
+            "outcome": "Crashed",
+            "steps": 1316,
+            "episode_return": 872.1699204508279,
+            "mean_speed": 316.8161946465179
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 2.261423603834446,
+            "outcome": "Crashed",
+            "steps": 342,
+            "episode_return": 212.7223603834446,
+            "mean_speed": 307.748865949759
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 9.160557506286295,
+            "outcome": "Crashed",
+            "steps": 1345,
+            "episode_return": 892.6057506286295,
+            "mean_speed": 316.8848417507937
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 5.074623036020126,
+            "outcome": "Crashed",
+            "steps": 750,
+            "episode_return": 489.96230360201247,
+            "mean_speed": 314.4134828730901
+          }
+        ]
+      },
+      {
+        "label": "no-clipped-objective",
+        "mean_laps": 0.19636314154435525,
+        "crash_rate": 1.0,
+        "completion_rate": 0.0,
+        "mean_return": 9.184314154435523,
+        "mean_speed": 216.54589042541798,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 0.1336345460030381,
+            "outcome": "Crashed",
+            "steps": 36,
+            "episode_return": 3.003454600303808,
+            "mean_speed": 203.58192114896283
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 0.07861890606267488,
+            "outcome": "Crashed",
+            "steps": 27,
+            "episode_return": -2.408109393732513,
+            "mean_speed": 162.48251703302066
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 0.19947473821835313,
+            "outcome": "Crashed",
+            "steps": 45,
+            "episode_return": 9.49747382183531,
+            "mean_speed": 224.88909168427477
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 0.0962483514475926,
+            "outcome": "Crashed",
+            "steps": 30,
+            "episode_return": -0.6751648552407392,
+            "mean_speed": 175.28493688796843
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 0.30818232575710314,
+            "outcome": "Crashed",
+            "steps": 62,
+            "episode_return": 20.198232575710314,
+            "mean_speed": 252.1675485134127
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 0.19790964660710655,
+            "outcome": "Crashed",
+            "steps": 46,
+            "episode_return": 9.330964660710658,
+            "mean_speed": 228.5278064063065
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 0.10419406635425951,
+            "outcome": "Crashed",
+            "steps": 31,
+            "episode_return": 0.10940663542594997,
+            "mean_speed": 183.6154168978722
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 0.3567426639398987,
+            "outcome": "Crashed",
+            "steps": 71,
+            "episode_return": 24.96426639398986,
+            "mean_speed": 260.42428391573145
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 0.3001727752521333,
+            "outcome": "Crashed",
+            "steps": 60,
+            "episode_return": 19.417277525213322,
+            "mean_speed": 250.16689929882708
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 0.18845339580139261,
+            "outcome": "Crashed",
+            "steps": 44,
+            "episode_return": 8.405339580139263,
+            "mean_speed": 224.3184824678034
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "variant": "no-truncation-bootstrap",
+    "description": "Time-limit truncation treated as a terminal state",
+    "overrides": {
+      "bootstrap_truncation": false
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mean_training_laps": [
+      8.311038712558688,
+      8.269134843874662,
+      8.390974990168555
+    ],
+    "steps_to_threshold": {
+      "threshold": 5.0,
+      "reached": [
+        90112,
+        81920,
+        81920
+      ],
+      "not_reached": 0
+    },
+    "evaluation": [
+      {
+        "label": "no-truncation-bootstrap",
+        "mean_laps": 9.86042151197076,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 971.0421511970759,
+        "mean_speed": 316.06043522146166,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 9.848205804181642,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 969.8205804181603,
+            "mean_speed": 315.9309602688832
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 9.825049945618758,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 967.5049945618736,
+            "mean_speed": 316.3244607308292
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 9.884826260391003,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 973.4826260391017,
+            "mean_speed": 315.6170259669515
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 9.825715981503002,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 967.5715981503006,
+            "mean_speed": 316.1835745250958
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 9.852596294809,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 970.2596294808992,
+            "mean_speed": 315.9838797455907
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 9.874123844934699,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 972.4123844934714,
+            "mean_speed": 316.07959677999384
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 9.881431976972642,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 973.1431976972647,
+            "mean_speed": 316.4721467030534
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 9.887047166979013,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 973.704716697903,
+            "mean_speed": 315.9380738849536
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 9.873883916948056,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 972.3883916948057,
+            "mean_speed": 315.7191056143322
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 9.851333927369781,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 970.133392736979,
+            "mean_speed": 316.3555279949331
+          }
+        ]
+      },
+      {
+        "label": "no-truncation-bootstrap",
+        "mean_laps": 9.797185429483296,
+        "crash_rate": 0.0,
+        "completion_rate": 1.0,
+        "mean_return": 964.71854294833,
+        "mean_speed": 314.392017453739,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 9.776286514254382,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 962.6286514254401,
+            "mean_speed": 314.0899324526572
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 9.758053783379431,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 960.8053783379462,
+            "mean_speed": 314.4024505429921
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 9.815154939358685,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 966.5154939358698,
+            "mean_speed": 314.1278840594928
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 9.795142527323645,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 964.514252732362,
+            "mean_speed": 314.0420946759557
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 9.803580715348916,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 965.3580715348915,
+            "mean_speed": 314.2420912059652
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 9.806061754492925,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 965.606175449293,
+            "mean_speed": 314.9001145628157
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 9.814684793385256,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 966.4684793385237,
+            "mean_speed": 314.8993454654331
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 9.784753202354098,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 963.4753202354117,
+            "mean_speed": 314.17204996109183
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 9.818728522245145,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 966.8728522245146,
+            "mean_speed": 314.1430708935502
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 9.79940754269048,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 964.9407542690469,
+            "mean_speed": 314.9011407174364
+          }
+        ]
+      },
+      {
+        "label": "no-truncation-bootstrap",
+        "mean_laps": 9.649599755413657,
+        "crash_rate": 0.1,
+        "completion_rate": 0.9,
+        "mean_return": 949.1629755413667,
+        "mean_speed": 311.3110356517115,
+        "episodes": [
+          {
+            "track": "Default track",
+            "start_index": 0,
+            "laps": 9.74479068715473,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 959.479068715472,
+            "mean_speed": 310.8263412367458
+          },
+          {
+            "track": "Default track",
+            "start_index": 24,
+            "laps": 9.754132427730953,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 960.4132427730952,
+            "mean_speed": 311.9248500398576
+          },
+          {
+            "track": "Default track",
+            "start_index": 48,
+            "laps": 9.793881460968285,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 964.388146096829,
+            "mean_speed": 310.99021442092794
+          },
+          {
+            "track": "Default track",
+            "start_index": 72,
+            "laps": 9.803002981069238,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 965.3002981069251,
+            "mean_speed": 311.5850681690596
+          },
+          {
+            "track": "Default track",
+            "start_index": 96,
+            "laps": 9.8106094207662,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 966.0609420766211,
+            "mean_speed": 311.30133837656587
+          },
+          {
+            "track": "Default track",
+            "start_index": 120,
+            "laps": 8.478977679826988,
+            "outcome": "Crashed",
+            "steps": 1297,
+            "episode_return": 824.9277679826995,
+            "mean_speed": 311.3403928292787
+          },
+          {
+            "track": "Default track",
+            "start_index": 144,
+            "laps": 9.804686314213408,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 965.4686314213433,
+            "mean_speed": 312.86784707582706
+          },
+          {
+            "track": "Default track",
+            "start_index": 168,
+            "laps": 9.756545341158642,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 960.6545341158649,
+            "mean_speed": 310.6293736880128
+          },
+          {
+            "track": "Default track",
+            "start_index": 192,
+            "laps": 9.729534214301438,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 957.9534214301456,
+            "mean_speed": 309.31531624550576
+          },
+          {
+            "track": "Default track",
+            "start_index": 216,
+            "laps": 9.819837026946706,
+            "outcome": "Completed",
+            "steps": 1500,
+            "episode_return": 966.9837026946714,
+            "mean_speed": 312.32961443533424
+          }
+        ]
+      }
+    ]
+  }
+]
