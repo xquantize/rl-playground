@@ -7,19 +7,24 @@ Two implementations share one configuration so they can be compared directly:
 from __future__ import annotations
 
 import json
+import logging
 import shutil
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, fields, replace
 from pathlib import Path
 
 import numpy as np
 
 from rl_playground.envs.racing import RacingEnv
+from rl_playground.runs import seed_dir
+
+log = logging.getLogger(__name__)
 
 ALGORITHMS = ("sb3", "scratch")
 MODEL_FILENAMES = {"sb3": "model.zip", "scratch": "model.pt"}
+SCRATCH_ONLY_DEFAULTS = {"orthogonal_init": True, "clip_objective": True, "bootstrap_truncation": True}
 
 
-@dataclass
+@dataclass(frozen=True)
 class TrainConfig:
     run_name: str
     algorithm: str = "sb3"
@@ -37,32 +42,45 @@ class TrainConfig:
     clip_range: float = 0.2
     ent_coef: float = 0.0
     vf_coef: float = 0.5
-    max_grad_norm: float = 0.5
+    max_grad_norm: float | None = 0.5
     net_arch: tuple[int, ...] = (64, 64)
+    normalize_advantage: bool = True
+    orthogonal_init: bool = True
+    clip_objective: bool = True
+    bootstrap_truncation: bool = True
 
     def __post_init__(self) -> None:
         if self.algorithm not in ALGORITHMS:
             raise ValueError(f"algorithm must be one of {ALGORITHMS}, got {self.algorithm!r}")
+        if self.algorithm == "sb3":
+            changed = [k for k, default in SCRATCH_ONLY_DEFAULTS.items() if getattr(self, k) != default]
+            if self.max_grad_norm is None:
+                changed.append("max_grad_norm")
+            if changed:
+                raise ValueError(f"{', '.join(changed)} can only be changed for the scratch algorithm")
+
+    @classmethod
+    def field_names(cls) -> set[str]:
+        return {f.name for f in fields(cls)}
 
 
-def train(config: TrainConfig, runs_dir: Path = Path("runs"), overwrite: bool = False) -> Path:
-    """Train a PPO agent and return the run directory.
-
-    Layout of the run directory::
-
-        config.json         training configuration
-        model.zip|.pt       final model (.zip for sb3, .pt for scratch)
-        checkpoints/        intermediate models every ``checkpoint_interval`` steps
-        tensorboard/        training curves
-    """
+def train(config: TrainConfig, seeds: list[int], runs_dir: Path = Path("runs"), overwrite: bool = False) -> Path:
+    """Train one agent per seed under ``runs_dir / run_name / seed_<n>`` and return the run directory."""
     run_dir = runs_dir / config.run_name
     if run_dir.exists():
         if not overwrite:
             raise FileExistsError(f"{run_dir} already exists; use --overwrite to replace it")
         shutil.rmtree(run_dir)
-    run_dir.mkdir(parents=True)
-    (run_dir / "config.json").write_text(json.dumps(asdict(config), indent=2))
+    for index, seed in enumerate(seeds, start=1):
+        log.info("Seed %d (%d of %d)", seed, index, len(seeds))
+        train_run(replace(config, seed=seed), seed_dir(run_dir, seed))
+    return run_dir
 
+
+def train_run(config: TrainConfig, run_dir: Path) -> Path:
+    """Train a single agent into ``run_dir``."""
+    run_dir.mkdir(parents=True, exist_ok=True)
+    (run_dir / "config.json").write_text(json.dumps(asdict(config), indent=2))
     if config.algorithm == "sb3":
         _train_sb3(config, run_dir)
     else:
@@ -121,6 +139,7 @@ def _train_sb3(config: TrainConfig, run_dir: Path) -> None:
         ent_coef=config.ent_coef,
         vf_coef=config.vf_coef,
         max_grad_norm=config.max_grad_norm,
+        normalize_advantage=config.normalize_advantage,
         policy_kwargs={"net_arch": list(config.net_arch)},
         tensorboard_log=str(run_dir / "tensorboard"),
         seed=config.seed,
@@ -149,19 +168,8 @@ def _train_scratch(config: TrainConfig, run_dir: Path) -> None:
 
     from rl_playground.algorithms.ppo import PPO, PPOConfig
 
-    ppo_config = PPOConfig(
-        learning_rate=config.learning_rate,
-        n_steps=config.n_steps,
-        batch_size=config.batch_size,
-        n_epochs=config.n_epochs,
-        gamma=config.gamma,
-        gae_lambda=config.gae_lambda,
-        clip_range=config.clip_range,
-        ent_coef=config.ent_coef,
-        vf_coef=config.vf_coef,
-        max_grad_norm=config.max_grad_norm,
-        net_arch=tuple(config.net_arch),
-    )
+    shared = {f.name for f in fields(PPOConfig)} & TrainConfig.field_names()
+    ppo_config = PPOConfig(**{name: getattr(config, name) for name in shared})
     track_mode = config.track_mode
     envs = gym.vector.AsyncVectorEnv(
         [lambda: RacingEnv(track_mode=track_mode) for _ in range(config.num_envs)],

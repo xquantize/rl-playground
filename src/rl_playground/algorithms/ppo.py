@@ -36,30 +36,44 @@ class PPOConfig:
     clip_range: float = 0.2
     ent_coef: float = 0.0
     vf_coef: float = 0.5
-    max_grad_norm: float = 0.5
+    max_grad_norm: float | None = 0.5
     net_arch: tuple[int, ...] = (64, 64)
+    normalize_advantage: bool = True
+    orthogonal_init: bool = True
+    clip_objective: bool = True
+    bootstrap_truncation: bool = True
 
 
-def _mlp(input_dim: int, hidden: Iterable[int], output_dim: int, output_gain: float) -> nn.Sequential:
+def _linear(input_dim: int, output_dim: int, gain: float, orthogonal: bool) -> nn.Linear:
+    layer = nn.Linear(input_dim, output_dim)
+    if orthogonal:
+        nn.init.orthogonal_(layer.weight, gain=gain)
+        nn.init.zeros_(layer.bias)
+    return layer
+
+
+def _mlp(
+    input_dim: int, hidden: Iterable[int], output_dim: int, output_gain: float, orthogonal: bool = True
+) -> nn.Sequential:
     layers: list[nn.Module] = []
     for width in hidden:
-        linear = nn.Linear(input_dim, width)
-        nn.init.orthogonal_(linear.weight, gain=np.sqrt(2))
-        nn.init.zeros_(linear.bias)
-        layers += [linear, nn.Tanh()]
+        layers += [_linear(input_dim, width, np.sqrt(2), orthogonal), nn.Tanh()]
         input_dim = width
-    head = nn.Linear(input_dim, output_dim)
-    nn.init.orthogonal_(head.weight, gain=output_gain)
-    nn.init.zeros_(head.bias)
-    return nn.Sequential(*layers, head)
+    return nn.Sequential(*layers, _linear(input_dim, output_dim, output_gain, orthogonal))
 
 
 class ActorCritic(nn.Module):
-    def __init__(self, observation_dim: int, action_dim: int, net_arch: Iterable[int] = (64, 64)):
+    def __init__(
+        self,
+        observation_dim: int,
+        action_dim: int,
+        net_arch: Iterable[int] = (64, 64),
+        orthogonal_init: bool = True,
+    ):
         super().__init__()
         net_arch = tuple(net_arch)
-        self.actor = _mlp(observation_dim, net_arch, action_dim, output_gain=0.01)
-        self.critic = _mlp(observation_dim, net_arch, 1, output_gain=1.0)
+        self.actor = _mlp(observation_dim, net_arch, action_dim, output_gain=0.01, orthogonal=orthogonal_init)
+        self.critic = _mlp(observation_dim, net_arch, 1, output_gain=1.0, orthogonal=orthogonal_init)
         self.log_std = nn.Parameter(torch.zeros(action_dim))
 
     def distribution(self, observations: torch.Tensor) -> Normal:
@@ -113,7 +127,9 @@ class PPO:
         self.action_high = envs.single_action_space.high
 
         torch.manual_seed(seed)
-        self.policy = ActorCritic(self.observation_dim, self.action_dim, self.config.net_arch)
+        self.policy = ActorCritic(
+            self.observation_dim, self.action_dim, self.config.net_arch, self.config.orthogonal_init
+        )
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=self.config.learning_rate, eps=1e-5)
         self.num_timesteps = 0
 
@@ -164,7 +180,7 @@ class PPO:
 
                 reward = torch.as_tensor(reward, dtype=torch.float32)
                 bootstrap = truncated & ~terminated
-                if bootstrap.any():
+                if cfg.bootstrap_truncation and bootstrap.any():
                     final = np.stack(info["final_obs"][bootstrap])
                     with torch.no_grad():
                         reward[bootstrap] += cfg.gamma * self.policy.value(torch.as_tensor(final, dtype=torch.float32))
@@ -228,20 +244,24 @@ class PPO:
             for indices in torch.randperm(batch_size).split(cfg.batch_size):
                 log_prob, entropy, value = self.policy.evaluate(observations[indices], actions[indices])
                 advantage = advantages[indices]
-                if len(indices) > 1:
+                if cfg.normalize_advantage and len(indices) > 1:
                     advantage = (advantage - advantage.mean()) / (advantage.std() + 1e-8)
 
                 log_ratio = log_prob - old_log_probs[indices]
                 ratio = log_ratio.exp()
                 clipped = ratio.clamp(1 - cfg.clip_range, 1 + cfg.clip_range)
-                policy_loss = -torch.min(advantage * ratio, advantage * clipped).mean()
+                if cfg.clip_objective:
+                    policy_loss = -torch.min(advantage * ratio, advantage * clipped).mean()
+                else:
+                    policy_loss = -(advantage * ratio).mean()
                 value_loss = nn.functional.mse_loss(returns[indices], value)
                 entropy_loss = -entropy.mean()
                 loss = policy_loss + cfg.ent_coef * entropy_loss + cfg.vf_coef * value_loss
 
                 self.optimizer.zero_grad()
                 loss.backward()
-                nn.utils.clip_grad_norm_(self.policy.parameters(), cfg.max_grad_norm)
+                if cfg.max_grad_norm is not None:
+                    nn.utils.clip_grad_norm_(self.policy.parameters(), cfg.max_grad_norm)
                 self.optimizer.step()
 
                 with torch.no_grad():
@@ -294,9 +314,10 @@ class PPOPolicy:
     action_high: np.ndarray
     num_timesteps: int = 0
     config: dict = field(default_factory=dict)
+    deterministic: bool = True
 
     @classmethod
-    def load(cls, path: Path) -> PPOPolicy:
+    def load(cls, path: Path, deterministic: bool = True) -> PPOPolicy:
         checkpoint = torch.load(path, map_location="cpu", weights_only=False)
         network = ActorCritic(checkpoint["observation_dim"], checkpoint["action_dim"], checkpoint["config"]["net_arch"])
         network.load_state_dict(checkpoint["state_dict"])
@@ -307,9 +328,11 @@ class PPOPolicy:
             np.asarray(checkpoint["action_high"]),
             checkpoint["num_timesteps"],
             checkpoint["config"],
+            deterministic,
         )
 
-    def predict(self, observation: np.ndarray, deterministic: bool = True) -> np.ndarray:
+    def predict(self, observation: np.ndarray, deterministic: bool | None = None) -> np.ndarray:
+        deterministic = self.deterministic if deterministic is None else deterministic
         with torch.no_grad():
             dist = self.network.distribution(torch.as_tensor(observation, dtype=torch.float32))
             action = dist.mean if deterministic else dist.sample()

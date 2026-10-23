@@ -2,14 +2,12 @@
 
 from __future__ import annotations
 
-import re
 from pathlib import Path
 from typing import Protocol
 
 import numpy as np
 
-MODEL_FILENAMES = ("model.zip", "model.pt")
-_CHECKPOINT_PATTERN = re.compile(r"model_(\d+)_steps")
+from rl_playground.runs import describe_model, resolve_models
 
 
 class Policy(Protocol):
@@ -17,13 +15,14 @@ class Policy(Protocol):
 
 
 class StableBaselinesPolicy:
-    """Deterministic wrapper around a Stable-Baselines3 model."""
+    """Wrapper around a Stable-Baselines3 model that acts on single observations."""
 
-    def __init__(self, model):
+    def __init__(self, model, deterministic: bool = True):
         self.model = model
+        self.deterministic = deterministic
 
     def predict(self, observation: np.ndarray) -> np.ndarray:
-        action, _ = self.model.predict(observation, deterministic=True)
+        action, _ = self.model.predict(observation, deterministic=self.deterministic)
         return action
 
 
@@ -39,44 +38,19 @@ class KeyboardPolicy:
         return np.array([steer, throttle], dtype=np.float32)
 
 
-def format_steps(steps: int) -> str:
-    if steps >= 1_000_000:
-        return f"{steps / 1_000_000:.1f}".removesuffix(".0") + "M"
-    return f"{steps // 1000}k"
-
-
-def resolve_model_path(path: str | Path) -> Path:
-    """Accept a run directory, a model or checkpoint file, or a model path without its suffix."""
-    path = Path(path)
-    if path.is_dir():
-        candidates = [path / name for name in MODEL_FILENAMES]
-    elif path.suffix in (".zip", ".pt"):
-        candidates = [path]
-    else:
-        candidates = [path.with_suffix(".zip"), path.with_suffix(".pt")]
-    for candidate in candidates:
-        if candidate.is_file():
-            return candidate
-    raise FileNotFoundError(f"No model found at {path}")
-
-
-def describe_model(path: Path) -> str:
-    """Human-readable label, e.g. ``baseline`` or ``baseline @ 200k``."""
-    match = _CHECKPOINT_PATTERN.fullmatch(path.stem)
-    if match and path.parent.name == "checkpoints":
-        return f"{path.parent.parent.name} @ {format_steps(int(match.group(1)))}"
-    if path.name in MODEL_FILENAMES:
-        return path.parent.name
-    return path.stem
-
-
-def load_policy(path: str | Path) -> tuple[Policy, str]:
-    resolved = resolve_model_path(path)
-    if resolved.suffix == ".pt":
+def load_model(model_path: Path, deterministic: bool = True) -> Policy:
+    """Load a trained policy. Deterministic policies act with the mean action, stochastic ones sample."""
+    if model_path.suffix == ".pt":
         from rl_playground.algorithms.ppo import PPOPolicy
 
-        return PPOPolicy.load(resolved), describe_model(resolved)
+        return PPOPolicy.load(model_path, deterministic=deterministic)
 
     from stable_baselines3 import PPO
 
-    return StableBaselinesPolicy(PPO.load(resolved, device="cpu")), describe_model(resolved)
+    return StableBaselinesPolicy(PPO.load(model_path, device="cpu"), deterministic=deterministic)
+
+
+def load_policy(path: str | Path) -> tuple[Policy, str]:
+    """Load a single policy. For a run with several seeds, the lowest seed is used."""
+    model_path = resolve_models(path)[0]
+    return load_model(model_path), describe_model(model_path)

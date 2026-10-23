@@ -73,3 +73,46 @@ def test_training_is_reproducible_for_a_seed(small_envs):
 
     for a, b in zip(train_once(), train_once(), strict=True):
         torch.testing.assert_close(a, b)
+
+
+@pytest.mark.parametrize(
+    "ablation",
+    [
+        {"normalize_advantage": False},
+        {"orthogonal_init": False},
+        {"max_grad_norm": None},
+        {"clip_objective": False},
+        {"bootstrap_truncation": False},
+    ],
+    ids=lambda a: next(iter(a)),
+)
+def test_ablations_train(small_envs, ablation):
+    model = PPO(small_envs, PPOConfig(n_steps=32, batch_size=16, n_epochs=1, **ablation), seed=0)
+    model.learn(64, progress_bar=False)
+    assert all(torch.isfinite(p).all() for p in model.policy.parameters())
+
+
+@pytest.mark.parametrize(
+    "ablation",
+    [
+        {"normalize_advantage": False},
+        {"orthogonal_init": False},
+        {"max_grad_norm": None},
+        {"clip_objective": False},
+        {"bootstrap_truncation": False},
+    ],
+    ids=lambda a: next(iter(a)),
+)
+def test_each_ablation_changes_training(ablation):
+    def trained_parameters(**overrides):
+        envs = gym.vector.SyncVectorEnv(
+            [lambda: RacingEnv(max_episode_steps=40) for _ in range(2)],
+            autoreset_mode=gym.vector.AutoresetMode.SAME_STEP,
+        )
+        settings = {"n_steps": 64, "batch_size": 32, "n_epochs": 4, "max_grad_norm": 0.05, **overrides}
+        model = PPO(envs, PPOConfig(**settings), seed=0)
+        model.learn(256, progress_bar=False)
+        envs.close()
+        return torch.cat([p.detach().flatten() for p in model.policy.parameters()])
+
+    assert not torch.allclose(trained_parameters(), trained_parameters(**ablation))

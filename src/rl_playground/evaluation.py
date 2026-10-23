@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 import numpy as np
+import torch
 
 from rl_playground.envs.track import Track
 from rl_playground.policies import Policy
@@ -77,6 +78,7 @@ def evaluation_episodes(track_mode: str, num_episodes: int, seed: int = EVALUATI
 
 
 def evaluate(policy: Policy, label: str, episodes: list[Episode]) -> EvaluationSummary:
+    torch.manual_seed(EVALUATION_SEED)
     rollout = Rollout(policy, label)
     results = []
     for episode in episodes:
@@ -96,20 +98,27 @@ def evaluate(policy: Policy, label: str, episodes: list[Episode]) -> EvaluationS
     return EvaluationSummary(label, results)
 
 
-def format_table(summaries: list[EvaluationSummary]) -> str:
-    headers = ("Agent", "Mean laps", "Crash rate", "Completed", "Mean speed", "Mean return")
+METRICS = ("mean_laps", "crash_rate", "completion_rate", "mean_speed", "mean_return")
+
+
+def mean_and_std(summaries: list[EvaluationSummary], metric: str) -> tuple[float, float]:
+    values = [getattr(s, metric) for s in summaries]
+    return float(np.mean(values)), float(np.std(values))
+
+
+def format_metric(summaries: list[EvaluationSummary], metric: str) -> str:
+    mean, std = mean_and_std(summaries, metric)
+    spec = ".0%" if metric.endswith("_rate") else ".2f" if metric == "mean_laps" else ".1f"
+    return f"{mean:{spec}}" if len(summaries) == 1 else f"{mean:{spec}} ± {std:{spec}}"
+
+
+def format_table(groups: list[tuple[str, list[EvaluationSummary]]]) -> str:
+    """Plain-text table with one row per agent; metrics show mean ± std across seeds."""
+    headers = ("Agent", "Seeds", "Mean laps", "Crash rate", "Completed", "Mean speed", "Mean return")
     rows = [
-        (
-            s.label,
-            f"{s.mean_laps:.2f}",
-            f"{s.crash_rate:.0%}",
-            f"{s.completion_rate:.0%}",
-            f"{s.mean_speed:.1f}",
-            f"{s.mean_return:.1f}",
-        )
-        for s in summaries
+        (label, str(len(summaries)), *(format_metric(summaries, m) for m in METRICS)) for label, summaries in groups
     ]
-    widths = [max(len(str(cell)) for cell in column) for column in zip(headers, *rows, strict=True)]
+    widths = [max(len(cell) for cell in column) for column in zip(headers, *rows, strict=True)]
 
     def line(cells) -> str:
         first, *rest = cells
